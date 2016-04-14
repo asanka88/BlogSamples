@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse"
+     name="urlvalidate"
+     context="/url">
+    <resource methods="POST" uri-template="/validate">
+        <inSequence>
+            <filter source="//url" regex="http(s)?:\/\/((\w+\.+){1,})+(\w+){1}\w*(\w)*([: \/][0-9]+)*[\/\w\?\=]*">
+                <then>
+                    <log level="custom">
+                        <property name="propStatus" value="url is valid"/>
+                    </log>
+
+                </then>
+                <else>
+                    <log level="custom">
+                        <property name="propStatus" value="!!!!url is not valid!!!!"/>
+                    </log>
+                </else>
+            </filter>
+            <drop/>
+        </inSequence>
+    </resource>
+</api>
